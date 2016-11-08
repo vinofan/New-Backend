@@ -21,5 +21,5 @@ Route::controllers([
 ]);
 
 Route::get('test', function () {
-    echo "test2";
+    echo "test4";
 });
