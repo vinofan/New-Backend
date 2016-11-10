@@ -20,6 +20,21 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('test', function () {
+
+// 后台登录
+Route::get('admin/login', 'Admin\LoginController@index');
+
+// 后台登录-提交
+Route::post('admin/check_login', 'Admin\LoginController@checkLogin');
+
+
+Route::group(['middleware' => 'auth'] , function ()
+{	
+	//后台首页
+    Route::get('test', function () {
     return view('common');
+});
+
+    //其他后台页面
+
 });
