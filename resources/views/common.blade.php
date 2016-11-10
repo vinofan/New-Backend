@@ -5,11 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>PPIN Tools</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/font-awesome.min.css">
-  <link rel="stylesheet" href="../css/ionicons.min.css">
-  <link rel="stylesheet" href="../css/AdminLTE.min.css">
-  <link rel="stylesheet" href="../css/skins/skin-purple.min.css">
+  <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../public/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../public/css/ionicons.min.css">
+  <link rel="stylesheet" href="../public/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="../public/css/skins/skin-purple.min.css">
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
 <div class="wrapper">
@@ -43,8 +43,8 @@
 @include('common/control_sidebar')
 </div>
 
-<script src="../js/jquery-2.2.3.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/app.min.js"></script>
+<script src="../public/js/jquery-2.2.3.min.js"></script>
+<script src="../public/js/bootstrap.min.js"></script>
+<script src="../public/js/app.min.js"></script>
 </body>
 </html>

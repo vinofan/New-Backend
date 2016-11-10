@@ -31,7 +31,7 @@ Route::post('admin/check_login', 'Admin\LoginController@checkLogin');
 Route::group(['middleware' => 'auth'] , function ()
 {	
 	//后台首页
-    Route::get('test', function () {
+    Route::get('admin', function () {
     return view('common');
 });
 
