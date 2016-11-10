@@ -15,18 +15,18 @@ use App\User;
 
 
 class LoginController extends Controller {
-	public function index()
-	{
-		return view('admin.login');
-	}
+    public function index()
+    {
+        return view('admin.login');
+    }
 
 
-	 /*
+     /*
      * 验证用户登录
      */
     public function checkLogin(Request $request) {
-    	$errors = [];
-    	$data = $request->except(['_token']);
+        $errors = [];
+        $data = $request->except(['_token']);
         //dd($data);
         $rules = [
             'username' => 'required',
@@ -42,13 +42,11 @@ class LoginController extends Controller {
         $user = Admin::where('user_name', $data['username'])->first();
        
         if (count($user) == 0)
-        {	
-        	echo  '用户名不存在';die;
-            //$errors['username'] =  '用户名不存在';die;
+        {   
+            $errors['username'] =  '用户名不存在';
         }elseif (!Hash::check($data['password'] , $user->user_passwd))
         {
-            echo  '密码不正确';die;
-            //$errors['username'] =  '密码不正确';
+            $errors['username'] =  '密码不正确';
         }
         if (count($errors) > 0)
         {
@@ -56,7 +54,7 @@ class LoginController extends Controller {
         }
 
         Auth::login($user);
-    	return redirect('admin');
+        return redirect('admin');
     }
 }
 
