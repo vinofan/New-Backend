@@ -56,5 +56,12 @@ class LoginController extends Controller {
         Auth::login($user);
         return redirect('admin');
     }
+
+    //退出登录
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('admin/login');
+    }
 }
 

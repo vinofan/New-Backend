@@ -27,7 +27,7 @@
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="../img/avatar.jpg" class="img-circle" alt="User Image">
+                <!-- <img src="../img/avatar.jpg" class="img-circle" alt="User Image"> -->
 
                 <p>
                   {{ $userdesc or 'here is description' }}
@@ -39,9 +39,19 @@
                 <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
+
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                </div>
+
+                <a href="{{ url('admin/logout') }}" class="btn btn-default btn-flat"
+                               onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">Sign out</a>
+                        
+                <form id="logout-form" action="{{ url('admin/logout') }}" method="POST" style="display: none;">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                </form>
+                    
+              </div>
+
               </li>
             </ul>
           </li>

@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+// Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
@@ -27,13 +27,14 @@ Route::get('admin/login', 'Admin\LoginController@index');
 // 后台登录-提交
 Route::post('admin/check_login', 'Admin\LoginController@checkLogin');
 
+// 后台退出
+Route::post('admin/logout', 'Admin\LoginController@logout');
+
 
 Route::group(['middleware' => 'auth'] , function ()
 {	
 	//后台首页
-    Route::get('admin', function () {
-    return view('common');
-});
+	Route::get('/admin', 'Common\IndexController@index');
 
     //其他后台页面
 
