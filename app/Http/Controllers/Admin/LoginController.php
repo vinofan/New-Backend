@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-use App\Model\Admin;
+use App\Models\Admin;
 use Auth;
 use Redirect;
 use App\User;
