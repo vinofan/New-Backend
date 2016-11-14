@@ -20,7 +20,7 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <!-- <img src="../img/avatar.jpg" class="user-image" alt="User Image"> -->
+              <img src="../img/avatar.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">{{ $username or 'couponsn'}}</span>
             </a>
@@ -42,14 +42,7 @@
 
                 <div class="pull-right">
 
-                <a href="{{ url('admin/logout') }}" class="btn btn-default btn-flat"
-                               onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">Sign out</a>
-                        
-                <form id="logout-form" action="{{ url('admin/logout') }}" method="POST" style="display: none;">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                </form>
-                    
+                <a href="{{ url('admin/logout') }}" class="btn btn-default btn-flat">Sign out</a>
               </div>
 
               </li>
