@@ -27,7 +27,7 @@
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <!-- <img src="../img/avatar.jpg" class="img-circle" alt="User Image"> -->
+                <img src="../img/avatar.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   {{ $userdesc or 'here is description' }}

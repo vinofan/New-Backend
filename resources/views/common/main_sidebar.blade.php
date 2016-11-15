@@ -18,12 +18,10 @@
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">Content</li>
+        <li class="header">Tools</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+          <a href="#"><i class="fa fa-pencil"></i> <span>Content Maintenance</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -33,6 +31,30 @@
             <li><a href="#">Link in level 2</a></li>
           </ul>
         </li>
+        <li class="treeview">
+          <a href=""><i class="fa fa-line-chart"></i> <span>Data analysis</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+          <ul class="treeview-menu">
+            <li><a href="#">Link in level 2</a></li>
+            <li><a href="#">Link in level 2</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href=""><i class="fa fa-download"></i> <span>Download &amp; API</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+          <ul class="treeview-menu">
+            <li><a href="#">Link in level 2</a></li>
+            <li><a href="#">Link in level 2</a></li>
+          </ul>
+        </li>
+        <li class="header">Quick Menu</li>
+        <li><a href="#"><i class="fa fa-circle-o"></i> <span>Merchant Center</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
