@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>PPIN Login</title>
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
-  <link rel="stylesheet" href="../css/font-awesome.min.css">
-  <link rel="stylesheet" href="../css/ionicons.min.css">
-  <link rel="stylesheet" href="../css/AdminLTE.min.css">
-  <link rel="stylesheet" href="../css/skins/skin-purple.min.css">
-</head>
-<body class="hold-transition login-page">
+@extends('app')
+
+@section('content')
 <div class="login-box">
   <div class="login-logo">
     <b>PPIN </b>LOGIN
@@ -48,13 +37,10 @@
       </div>
     </form>
 
+    <a href="{{ url('admin/password') }}" class="text-red">I forgot my password</a>
+
   </div>
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
-
-<script src="../js/jquery-2.2.3.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/app.min.js"></script>
-</body>
-</html>
+@endsection
