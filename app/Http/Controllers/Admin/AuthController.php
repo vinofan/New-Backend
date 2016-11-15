@@ -27,7 +27,16 @@ class AuthController extends Controller
 
     public function getRegister()
     {
-    	return view('admin.register');
+        if(Auth::check()) {
+            $user = Auth::user();
+            if ($user->auth == 'ADMIN'){
+                return view('admin.register');
+            }
+
+            return view('errors.503');
+        }
+
+        abort(404);
     }
 
     public function postRegister(Request $request)
