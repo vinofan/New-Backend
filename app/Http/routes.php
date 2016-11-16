@@ -14,7 +14,7 @@ Route::controller('admin', 'Admin\AuthController');
 
 Route::group(['middleware' => 'auth'], function () {
     //后台首页
-    Route::get('home', 'Common\IndexController@index');
+    Route::get('home', 'CommonController@index');
 
     //其他后台页面
     Route::get('testlogin', function () {
