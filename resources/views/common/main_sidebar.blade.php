@@ -32,7 +32,7 @@
           </ul>
         </li>
         <li class="treeview">
-          <a href=""><i class="fa fa-line-chart"></i> <span>Data analysis</span>
+          <a href=""><i class="fa fa-line-chart"></i> <span>Data Analysis</span>
           <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -50,6 +50,17 @@
             </a>
           <ul class="treeview-menu">
             <li><a href="#">Link in level 2</a></li>
+            <li><a href="#">Link in level 2</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href=""><i class="fa fa-download"></i> <span>System Management</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ url('manage/module') }}">Module Management</a></li>
             <li><a href="#">Link in level 2</a></li>
           </ul>
         </li>

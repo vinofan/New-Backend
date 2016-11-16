@@ -26,7 +26,7 @@
             <small>{{ $page_description or null }}</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+            <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> home</a></li>
             <li class="active">Here</li>
         </ol>
     </section>

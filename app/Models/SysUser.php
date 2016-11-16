@@ -32,4 +32,9 @@ class SysUser extends Model implements AuthenticatableContract, CanResetPassword
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function up()
+    {
+        return $this->belongsTo('App\Models\UserPermit', 'auth', 'permit');
+    }
 }

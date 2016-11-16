@@ -3,6 +3,10 @@
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
+use App\Models\SysUser;
+use App\Models\UserPermit;
+use App\Models\MenuModule;
+
 class Authenticate {
 
 	/**
@@ -44,7 +48,18 @@ class Authenticate {
 			}
 		}
 
+		$user = $this->auth->user();
+		if ($this->checkAuth($user['auth']))
+		{
+
+		}
+
 		return $next($request);
+	}
+
+	public function checkAuth($permit)
+	{
+
 	}
 
 }
