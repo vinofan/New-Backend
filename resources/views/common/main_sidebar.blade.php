@@ -21,7 +21,7 @@
         <li class="header">Tools</li>
         <!-- Optionally, you can add icons to the links -->
         @foreach ($groups as $group)
-        <li class="treeview">
+        <li @if ($route['name'] == $group->name) class="treeview active" @else class="treeview" @endif>
           <a href="#"><i class="fa fa-pencil"></i> <span>{{ $group->name }}</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
@@ -29,7 +29,7 @@
           </a>
           @foreach ($group->module as $module)
           <ul class="treeview-menu">
-            <li><a href="#">{{ $module->name }} </a></li>
+            <li @if ($route['id'] == $module->route_id) class="active" @endif><a href="{{ $module->route_path }}">{{ $module->name }} </a></li>
           </ul>
           @endforeach
         </li>
