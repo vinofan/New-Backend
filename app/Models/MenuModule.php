@@ -11,5 +11,10 @@ class MenuModule extends Model {
 	{
 		return $this->belongsTo('App\Models\MenuGroup', 'group_id', 'id');
 	}
+	
+	public function ri()
+	{
+		return $this->belongsTo('App\Models\RouteInfo', 'route_id', 'id');
+	}
 
 }

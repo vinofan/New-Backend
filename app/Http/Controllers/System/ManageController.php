@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class ManageController extends Controller {
 
-	public function getAddModule()
+	public function getAddModule(Request $request)
 	{
-		return view('manage.module');
+		$page_info = [
+			'route' => $request->route,
+			'groups' => $request->groups,
+		];
+		
+		return view('manage.module', $page_info);
 	}
 
 	public function postAddModule()

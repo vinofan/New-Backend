@@ -22,12 +22,17 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-            {{ $page_title or "Page Title" }}
-            <small>{{ $page_description or null }}</small>
+            {{ $route['page_title'] or "Page Title" }}
+            <small>{{ $route['page_description'] or null }}</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ url('home') }}"><i class="fa fa-dashboard"></i> home</a></li>
-            <li class="active">Here</li>
+            @if ( $route['path'] != 'home' && $route['group_breadcrumb'])
+            <li>{{ $route['group_breadcrumb'] }}</li>
+            @endif
+            @if ( $route['path'] != 'home' && $route['page_breadcrumb']) 
+            <li class="active">{{ $route['page_breadcrumb'] }}</li>
+            @endif
         </ol>
     </section>
 

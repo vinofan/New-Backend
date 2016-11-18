@@ -3,9 +3,11 @@
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
-use App\Models\SysUser;
-use App\Models\UserPermit;
+use App\Models\MenuGroup;
 use App\Models\MenuModule;
+use App\Models\RouteInfo;
+
+use Config;
 
 class Authenticate {
 
@@ -49,17 +51,41 @@ class Authenticate {
 		}
 
 		$user = $this->auth->user();
-		if ($this->checkAuth($user['auth']))
+		if (!$this->checkAuth($user['auth'], $request->path()))
 		{
-
+			return response('Unauthorized.', 401);
 		}
+
+		//page info
+		$route_info = RouteInfo::where('path', $request->path())->first();
+		
+		$route_group_info = MenuModule::where('route_id', '=' , RouteInfo::where('path', $request->path())->pluck('id'))->first()->mgro;
+		$request->route = collect($route_group_info)->merge($route_info);
+
+		//menu info
+		$groups_info = MenuGroup::all();
+		$groups_info->map(function ($item) {
+    		$item->module = MenuModule::where('group_id', '=', $item->id)->get();
+    		return $item;
+		});
+		$request->groups = $groups_info;
 
 		return $next($request);
 	}
 
-	public function checkAuth($permit)
+	public function checkAuth($permit, $path)
 	{
+		$permit_rank = Config::get("constants.$permit");
+		
+		$path_permit = RouteInfo::where('path', $path)->pluck('permit');
+		$path_rank = Config::get("constants.$path_permit");
 
+		if($permit_rank <= $path_rank)
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 }
