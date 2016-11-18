@@ -22,6 +22,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     //Manage
-    Route::get('manage/addmodule', 'System\ManageController@getAddModule');
+    Route::get('manage/addmodule', 'Manage\ManageController@getAddModule');
 });
 	

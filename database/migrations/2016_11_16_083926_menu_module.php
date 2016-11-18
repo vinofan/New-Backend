@@ -15,6 +15,7 @@ class MenuModule extends Migration {
 		Schema::create('menu_module', function(Blueprint $table){
 			$table->increments('id');
 			$table->integer('route_id');
+			$table->string('route_path');
 			$table->enum('quick_link', [0,1])->default(0);
 			$table->integer('group_id');
 			$table->timestamp('created_at');

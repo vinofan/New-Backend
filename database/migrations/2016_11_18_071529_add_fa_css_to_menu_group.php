@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRoutePathToMenuModule extends Migration {
+class AddFaCssToMenuGroup extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,8 +12,8 @@ class AddRoutePathToMenuModule extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('menu_module',function($table){
-			$table->string('route_path')->after('name');
+		Schema::table('menu_group', function($table){
+			$table->string('fa_css')->after('group_breadcrumb');
 		});
 	}
 
@@ -24,8 +24,8 @@ class AddRoutePathToMenuModule extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('menu_module',function($table){
-			$table->dropColumn('route_path');
+		Schema::table('menu_group', function($table){
+			$table->dropColumn('fa_css');
 		});
 	}
 
