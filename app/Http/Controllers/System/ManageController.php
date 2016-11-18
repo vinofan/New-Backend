@@ -9,12 +9,8 @@ class ManageController extends Controller {
 
 	public function getAddModule(Request $request)
 	{
-		$page_info = [
-			'route' => $request->route,
-			'groups' => $request->groups,
-		];
-		
-		return view('manage.module', $page_info);
+
+		return view('manage.module');
 	}
 
 	public function postAddModule()

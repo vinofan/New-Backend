@@ -57,18 +57,10 @@ class Authenticate {
 		}
 
 		//page info
-		$route_info = RouteInfo::where('path', $request->path())->first();
-		
 		$route_group_info = MenuModule::where('route_id', '=' , RouteInfo::where('path', $request->path())->pluck('id'))->first()->mgro;
-		$request->route = collect($route_group_info)->merge($route_info);
+		$route_info = collect($route_group_info)->merge(RouteInfo::where('path', $request->path())->first());
 
-		//menu info
-		$groups_info = MenuGroup::all();
-		$groups_info->map(function ($item) {
-    		$item->module = MenuModule::where('group_id', '=', $item->id)->get();
-    		return $item;
-		});
-		$request->groups = $groups_info;
+		view()->share('route', $route_info);
 
 		return $next($request);
 	}
