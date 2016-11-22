@@ -13,13 +13,5 @@
 Route::controller('admin', 'Admin\AuthController');
 
 Route::group(['middleware' => 'auth'], function () {
-    //后台首页
-    Route::get('home', 'CommonController@index');
-
-    //Manage
-    Route::get('manage/addmodule', 'Manage\ManageController@getAddModule');
-
-Route::get('test', 'TestPaginateController@index');
-    
+	include("path_routes.php");
 });
-	

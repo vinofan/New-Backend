@@ -12,8 +12,9 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected $commands = [
 		'App\Console\Commands\Inspire',
-		'App\Console\Commands\AddModule',
-	];
+        'App\Console\Commands\AddModule',
+        'App\Console\Commands\AddPath',
+    ];
 
 	/**
 	 * Define the application's command schedule.
