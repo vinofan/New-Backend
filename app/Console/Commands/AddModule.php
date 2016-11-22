@@ -37,7 +37,7 @@ class AddModule extends Command {
 	{
 		return [
 			['path', InputArgument::REQUIRED, ''],
-			['controller_name', InputArgument::OPTIONAL, '','Common/Common'],
+			//['controller_name', InputArgument::OPTIONAL, ''],
 			['page_title', InputArgument::OPTIONAL, '','Title'],
 			['page_description', InputArgument::OPTIONAL, '','Description'],
 			['page_breadcrumb', InputArgument::OPTIONAL, '','Breadcrumb'],
@@ -62,7 +62,7 @@ class AddModule extends Command {
 	public function handle()
 	{	
 		$path = $this->argument('path');
-		$controller_name = $this->argument('controller_name');
+		//$controller_name = $this->argument('controller_name');
 		$page_title = addslashes($this->argument('page_title'));
 		$page_description = addslashes($this->argument('page_description'));
 		$page_breadcrumb = addslashes($this->argument('page_breadcrumb'));
@@ -79,17 +79,17 @@ class AddModule extends Command {
 		// 	  ]
 		// );
 		
-		$tmp = explode('/',$controller_name);
-		$folder = $tmp[0];
-		$controller_name = $tmp[1];
+		$path = explode('/',$path);
+		$folder = ucfirst($path[0]);
+		$controller_name = ucfirst($path[1]);
 
-		$routeContent = "\n\n"."Route::get('".$path."', '".$folder."\\".$controller_name."Controller@Index');";
+		$routeContent = "\n\n"."Route::get('".$path."', '".$folder."\\".$controller_name."Controller@get".$controller_name."');";
 
 		$controllerContent  = "<?php namespace App\Http\Controllers\\".$folder.";";
 		$controllerContent .= "\n\n"."use App\Http\Controllers\Controller;";
 		$controllerContent .= "\n\n"."class ".$controller_name."Controller extends Controller {";
-		$controllerContent .= "\n\n"."    public function Index() {";
-		$controllerContent .= "\n\n"."		return view('".$folder.".".$controller_name."');";
+		$controllerContent .= "\n\n"."    public function get".$controller_name."() {";
+		$controllerContent .= "\n\n"."		return view('".$path[0].".".$path[1]."');";
 		$controllerContent .= "\n\n"."	}";
 		$controllerContent .= "\n\n"."}";
 
@@ -97,10 +97,10 @@ class AddModule extends Command {
 		$viewContent .= "<br />".$page_description;
 
 		$controllerPath = "app/Http/Controllers/".$folder."/".$controller_name."Controller.php";
-		$viewPath = "resources/views/".$folder."/".$controller_name.".blade.php";
+		$viewPath = "resources/views/".$path[0]."/".$path[1].".blade.php";
 
 		//生成路由
-		File::append("app/Http/MiddleRoutes.php",$routeContent);
+		File::append("app/Http/routes.php",$routeContent);
 
 		//生成控制器
 		File::exists($controllerPath,  $mode = 0777, $recursive = false);
