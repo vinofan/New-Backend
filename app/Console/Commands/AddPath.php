@@ -73,7 +73,7 @@ class AddPath extends Command {
 			$controller_name = "app/Http/Controllers/" . $path_info['controller'] . ".php";
 			$route_content = "\n\nRoute::get('{$path}', '{$path_info['controller']}@get{$controller}');";	
 
-			$controller_content .= "\n\n"."    public function get{$controller}() {";
+			$controller_content = "\n\n"."    public function get{$controller}() {";
 			$controller_content .= "\n\n"."		return view('" . str_replace("/", ".", $path) . "');";
 			$controller_content .= "\n\n"."	}";
 			$controller_content .= "\n\n"."}";
