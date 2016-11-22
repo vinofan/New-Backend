@@ -16,12 +16,10 @@ Route::group(['middleware' => 'auth'], function () {
     //后台首页
     Route::get('home', 'CommonController@index');
 
-    //其他后台页面
-    Route::get('testlogin', function () {
-        return "test suc";
-    });
-
     //Manage
     Route::get('manage/addmodule', 'Manage\ManageController@getAddModule');
+
+Route::get('test', 'TestPaginateController@index');
+    
 });
 	

@@ -80,7 +80,7 @@ class Authenticate {
 		$path_permit = RouteInfo::where('path', $path)->pluck('permit');
 		$path_rank = Config::get("constants.$path_permit");
 
-		if($permit_rank <= $path_rank)
+		if($permit_rank <= $path_rank || $path_rank == null)
 		{
 			return true;
 		}
