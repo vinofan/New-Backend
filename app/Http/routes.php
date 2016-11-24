@@ -12,6 +12,6 @@
 */
 Route::controller('admin', 'Admin\AuthController');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'share']], function () {
 	include("path_routes.php");
 });

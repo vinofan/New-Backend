@@ -14,11 +14,10 @@
                 <div class="box-body">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     
-                    <div class="form-group has-feedback">
-                    <label for="modulename" class="col-sm-2 control-label">Module Name</label>
+                    <div class="form-group">
+                    <label for="modulename" class="col-sm-2 control-label">Module Name<sup>*</sup></label>
                     <div class="col-sm-6">
                     <input type="text" name="modulename" id="modulename" class="form-control">
-                    <span class="fa fa-asterisk text-red form-control-feedback"></span>
                     </div>
                     </div>
                     <div class="form-group">
@@ -27,14 +26,13 @@
                     <textarea class="form-control" name="moduleremark" id="moduleremark" cols="30" rows="5"></textarea>
                     </div>
                     </div>
-                    <div class="form-group has-feedback">
-                    <label for="moduleurl" class="col-sm-2 control-label">Module Url</label>
+                    <div class="form-group">
+                    <label for="moduleurl" class="col-sm-2 control-label">Module Url<sup>*</sup></label>
                     <div class="col-sm-6">
                     <input type="text" name="moduleurl" id="moduleurl" class="form-control">
-                    <span class="fa fa-asterisk text-red form-control-feedback"></span>
                     </div>
                     </div>   
-                    <div class="form-group has-feedback">
+                    <div class="form-group">
                     <label for="moduleparent" class="col-sm-2 control-label">Module Parent</label>
                     <div class="col-sm-6">
                     <select name="moduleparent" id="moduleparent" class="form-control">

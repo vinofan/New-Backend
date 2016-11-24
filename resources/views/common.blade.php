@@ -9,7 +9,11 @@
   <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/ionicons.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/slider.css') }}">
   <link rel="stylesheet" href="{{ asset('css/skins/skin-purple.min.css') }}">
+  @if ( isset($route['css_path']))
+  <link rel="stylesheet" href="{{ $route['css_path'] }}">
+  @endif
 </head>
 <body class="hold-transition skin-purple sidebar-mini">
 <div class="wrapper">
@@ -51,5 +55,9 @@
 <script src="{{ asset('js/jquery-2.2.3.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/app.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-slider.js') }}"></script>
+@if ( isset($route['js_path']))
+<script src="{{ $route['js_path'] }}"></script>
+@endif
 </body>
 </html>

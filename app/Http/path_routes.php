@@ -5,6 +5,8 @@
     //Manage
     Route::get('manage/addmodule', 'Manage\ManageController@getAddModule');
 
-Route::get('test', 'TestPaginateController@index');
+	Route::get('test', 'TestPaginateController@index');
 
-Route::get('test/testaddpath', 'Test\TestAddPathController@getTestAddPath');
+
+
+Route::get('content/merchantcenter', 'Content\MerchantCenterController@getMerchantCenter');

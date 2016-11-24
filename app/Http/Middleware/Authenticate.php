@@ -3,8 +3,6 @@
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
-use App\Models\MenuGroup;
-use App\Models\MenuModule;
 use App\Models\RouteInfo;
 
 use Config;
@@ -55,21 +53,7 @@ class Authenticate {
 		{
 			return response('Unauthorized.', 401);
 		}
-
-		//page info
 		
-		if(count(MenuModule::where('route_id', '=' , RouteInfo::where('path', $request->path())->pluck('id'))->get()))
-		{
-			$route_group_info = MenuModule::where('route_id', '=' , RouteInfo::where('path', $request->path())->pluck('id'))->first()->mgro;
-			$route_info = collect($route_group_info)->merge(RouteInfo::where('path', $request->path())->first());
-		}
-		else
-		{
-			$route_info = RouteInfo::where('path', $request->path())->first();
-		}
-
-		view()->share('route', $route_info);
-
 		return $next($request);
 	}
 
