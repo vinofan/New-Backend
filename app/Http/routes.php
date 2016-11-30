@@ -12,6 +12,11 @@
 */
 Route::controller('admin', 'Admin\AuthController');
 
-Route::group(['middleware' => ['auth', 'share']], function () {
-	include("path_routes.php");
+Route::group(['middleware' => 'auth'], function () {
+	Route::post('content/merchantlistdata', 'Content\MerchantCenterController@postMerchantListData');
+	Route::get('content/merchantlistdatatest', 'Content\MerchantCenterController@postMerchantListData');
+
+	Route::group(['middleware' => 'share'], function () {
+		include("path_routes.php");
+	});
 });

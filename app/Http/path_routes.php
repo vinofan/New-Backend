@@ -4,6 +4,7 @@
 
     //Manage
     Route::get('manage/addmodule', 'Manage\ManageController@getAddModule');
+    Route::post('manage/addmodule', 'Manage\ManageController@postAddModule');
 
 	Route::get('test', 'TestPaginateController@index');
 
