@@ -44,16 +44,13 @@ class MerchantCenterController extends Controller {
         $grades = Config::get("constants.grades");
         $front_url = Config::get("constants.front_url");
 
+
         $sql_addition = $this->getSqlAddition($filter);
 
         $nm = new NormalMerchant;
 
         $nm = $nm->withNMA()->withMSF();
-        if (isset($filter['search']) && $filter['search']['value'] != '')
-        {
-            $nm = $nm->where($nm->table_pre . 'Name', 'like', "%" . $filter['search']['value'] . "%")->orWhere($nm->table_pre . 'ID', '=', $filter['search']['value']);
-            
-        }
+        Storage::put('dataTables.txt', $sql_addition);
         
         if ($sql_addition != '')
         {
@@ -61,6 +58,7 @@ class MerchantCenterController extends Controller {
         }
 
         $nm = $nm->orderBy($this->select_columns[$filter['order'][0]["column"]], $filter['order'][0]["dir"]);
+        Storage::append('dataTables.txt', $nm->toSql());
         $data['recordsFiltered'] = $data['recordsTotal'] = $nm->count();
 
         $data['data'] = $nm->skip($filter['start'])->take($filter['length'])->get(); 
@@ -81,6 +79,11 @@ class MerchantCenterController extends Controller {
     public function getSqlAddition(Array $filter)
     {
         $arr = [];
+
+        if (isset($filter['search']) && $filter['search']['value'] != '')
+        {          
+            $arr[] = "NormalMerchant.Name like '%" . $filter['search']['value'] . "%' or NormalMerchant.ID = '".$filter['search']['value'] . "'";
+        }
 
         if ($filter['merchant_grade'] > 0)
         {

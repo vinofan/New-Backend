@@ -20,6 +20,9 @@ function getTable()
 
 	$('#merchant_list_table').DataTable({
 		serverSide: true,
+		createdRow: function ( row, data, index ) {
+                        $('td', row).eq(5).css('vertical-align',"middle").css("text-align","center");
+                },
 		ajax: {
 			url: 'http://in.backend.com/content/merchantlistdata',
 			type: 'POST',
@@ -32,9 +35,9 @@ function getTable()
 				return "<div class=\"media\"><a class=\"media-left\" href='"
 								 + row.OriginalUrl + "'><img class=\"logo\" src='http://in.mgcdn.com/mimg/merimg/s_"
 								 + row.Logo + "'/></a><div class=\"media-body\"><h4 class=\"media-heading\"><a target='_blank' href='"
-								 + row.merchant_url + "'>"
-								 + data + " : " + row.Name + "</a></h4><br>BCGID:<span class=\"text-red\">"
-								 + row.mappingID + "</span>&nbsp;|&nbsp;<span>Editor: "
+								 + row.MerchantUrl + "'>"
+								 + data + " : " + row.Name + "</a></h4><br><b>BCGID:</b><span class=\"text-red\">"
+								 + row.mappingID + "</span>&nbsp;|&nbsp;<span><b>Editor: </b>"
 								 + row.AssignedEditor + "</span><br>Has Aff: "
 								 + row.HasAffiliate + "</div></div>";
 			}
@@ -43,15 +46,15 @@ function getTable()
 			"data": "Grade",
 			render: function (data, type, row, meta) {
 				return "<span>" + data + "</span>"
-						+ "<br><br><span>Min Promo#: " + row.MinPromotionCount + "</span>"
-						+ "<br><span>Upd Cycle: " + row.TaskUpdateCycle + "</span>";
+						+ "<br><br><span><b>Min Promo#: </b>" + row.MinPromotionCount + "</span>"
+						+ "<br><span><b>Upd Cycle: </b>" + row.TaskUpdateCycle + "</span>";
 			}
 		},
 		{
 			"data": "PromotionCnt",
 			render: function (data, type, row, meta) {
 				return "<span>" + data + "</span>"
-						+ "<br><br><span>Coupon Cnt#: " + row.CouponCnt + "</span>&nbsp;|&nbsp;"
+						+ "<br><br><span><b>Coupon Cnt#: </b>" + row.CouponCnt + "</span>&nbsp;|&nbsp;"
 						+ "<span>Deal Cnt#: " + (data - row.CouponCnt) + "</span>" 
 						+ "<br><span>Last Add Time : " + row.LastAddTime + "</span>";
 			}
@@ -60,8 +63,8 @@ function getTable()
 			"data": "Ctr",
 			render: function (data, type, row, meta) {
 				return "<span>" + data + "</span>"
-						+ "<br><br><span>Impr7d: " + row.Imps7d 
-						+ "<br><span>Click7d : " + row.Clks7d + "</span>";
+						+ "<br><br><span><b>Impr7d: </b>" + row.Imps7d 
+						+ "<br><span><b>Click7d : </b>" + row.Clks7d + "</span>";
 			}	
 		},
 		{
@@ -69,6 +72,8 @@ function getTable()
 			"orderable": false,
 			render: function (data, type, row, meta) {
 				var str = "";
+				str = "<div class=\"btn-group\"><button class=\"btn btn-default btn-flat\" onclick=\"getRelatedUrl("
+				+ row.ID +");\">RelatedUrl</button></div>"
 				if (row.related_url && row.related_url.length > 0) {
 				str += "<b>Related Url:</b><br>";
 				$.each(row.related_url, function(index, value) {
@@ -85,6 +90,13 @@ function getTable()
 
 				return str;
 			}
+		},
+		{
+			"data": "Name",
+			"orderable": false,
+			render: function (data, type, row, meta) {
+				return "<a href='#'><span class='glyphicon glyphicon-circle-arrow-right merchant_info_page'></span></a>";
+			}
 		}
 		]
 	});
@@ -95,12 +107,22 @@ $('#merchant_list_submit').click(function(){
 	getTable();
 });
 
+
+function getRelatedUrl(id){
+	
+
+	$('#show_modal').modal('show');
+}
+
+$('#related_url_35141').click(function(){
+	$('#show_modal').modal('show');
+});
+
 $(document).ready(function(){
 	$('input[type="checkbox"], input[type="radio"]').iCheck({
       checkboxClass: 'icheckbox_square-blue',
       radioClass: 'iradio_square-blue'
     });
-
 
 	getTable();
 });

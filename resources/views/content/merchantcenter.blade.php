@@ -1,8 +1,8 @@
 @extends('common')
 @section('content')
 <div class="box box-primary">
-  <div class="box-header with-border">
-     <h3 class="box-title">Merchant Center</h3>
+ <div class="box-header with-border">
+   <h3 class="box-title">Merchant Center</h3>
  </div>
  <form class="form-horizontal" id="merchant_center_form">
      <div class="box-body">
@@ -64,12 +64,7 @@
       </div>
   </div>
 </form>
-</div>
-<div class="box">
-    <div class="box-header">
-        <h3 class="box-title">Merchant List</h3>
-    </div>
-    <div class="box-body">
+<div class="box-body">
         <table class="table table-hover table-bordered" id="merchant_list_table">
           <thead>
             <tr class="info">
@@ -78,11 +73,25 @@
               <th>Promo #</th>
               <th>CTR</th>
               <th>Reference</th>
+              <th>Operator</th>
             </tr>
           </thead>
           <tbody>
           </tbody>
         </table>
     </div>
+</div>
+<div class="modal fade" id="show_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <p></p>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+    </div>
+  </div>
 </div>
 @endsection

@@ -26,9 +26,7 @@ class MenuSeeder extends Seeder
 	
 	public function run()
 	{
-		DB::table('menu_group')->where('id', 1)->update(['fa_css' => 'fa fa-file-text-o']);
-		DB::table('menu_group')->where('id', 2)->update(['fa_css' => 'fa fa-line-chart']);
-		DB::table('menu_group')->where('id', 3)->update(['fa_css' => 'fa fa-cloud-download']);
-		DB::table('menu_group')->where('id', 4)->update(['fa_css' => 'fa fa-pencil']);
+		DB::table('menu_module')->insert(['id' => '3', 'name' => 'Merchant Center', 'route_path' => 'content/merchantcenter', 'route_id' => 8, 'quick_link' => 1, 'group_id' => 1]);
+		DB::table('route_path')->insert(['id' => 'content/merchantcenter', 'page_title' => 'Merchant Center', 'page_breadcrumb' => 'merchant center', 'permit' => 'EDITOR']);
 	}
 }
