@@ -24,7 +24,7 @@ function getTable()
                         $('td', row).eq(5).css('vertical-align',"middle").css("text-align","center");
                 },
 		ajax: {
-			url: 'http://in.backend.com/content/merchantlistdata',
+			url: '/content/merchantlistdata',
 			type: 'POST',
 			data: form_datas,
 		},
