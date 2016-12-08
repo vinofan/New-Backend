@@ -173,14 +173,14 @@
 								    </p>
 			                  	</td>
 			                  	
-			                  	<td width='7%'>
+			                  	<td width='8%'>
 
 									<span id="expiredatetype_{{$coupon->ID}}">{{$coupon->expiredate_type}}</span><br>
-									A: <span>@if($coupon->add_time == "1970-01-01") 0000-00-00 @else{{$coupon->add_time}}@endif</span><br>
+									A: <a href="#" class="addtime_edit" data-pk="{{$coupon->ID}}"><span>@if($coupon->add_time == "1970-01-01" || $coupon->add_time == "0000-00-00")  @else{{$coupon->add_time}}@endif</span></a><br>
 									<!-- S: <span>{{$coupon->start_time}}</span><br> -->
-									E: <span>@if($coupon->expire_time == "1970-01-01") 0000-00-00 @else{{$coupon->expire_time}}@endif</span><br>
+									E: <a href="#" class="expiretime_edit" data-pk="{{$coupon->ID}}"><span>@if($coupon->expire_time <= "1970-01-01" || $coupon->expire_time == "0000-00-00")  @else{{$coupon->expire_time}}@endif</span></a><br>
 									@if($coupon->expiredate_type == 'Unknown')
-										R: <span>{{$coupon->remind_date}}</span><br>
+										R: <a href="#" class="reminddate_edit" data-pk="{{$coupon->ID}}"><span>@if($coupon->remind_date <= "1970-01-01" || $coupon->remind_date == "0000-00-00")  @else{{$coupon->remind_date}}@endif</span></a><br>
 									@endif
 			                  	</td>
 			                  	<td></td>
@@ -194,13 +194,14 @@
 
 			           
 			            </tbody>
+
 	                </table>
-	                <?php echo $coupons->render(); ?>
-	                
+	                <div class="pull-right">
+	                     <?php echo $coupons->render(); ?>
+	                </div>
 		        </div>
 
 			</div>
-
 
 
 <script>
@@ -225,6 +226,27 @@ $('.remark_edit').editable({
                            name:  'remark',
                            url:   '/content/clickchange',  
                            title: 'Remark edit'                           
+                        });
+$('.addtime_edit').editable({
+                           type:  'date',
+                           pk:    1,
+                           name:  'addtime',
+                           url:   '/content/clickchange',  
+                           title: 'Addtime edit'                           
+                        });
+$('.expiretime_edit').editable({
+                           type:  'date',
+                           pk:    1,
+                           name:  'expiretime',
+                           url:   '/content/clickchange',  
+                           title: 'Expiretime edit'                           
+                        });
+$('.reminddate_edit').editable({
+                           type:  'date',
+                           pk:    1,
+                           name:  'reminddate',
+                           url:   '/content/clickchange',  
+                           title: 'Reminddate edit'                           
                         });
 
 </script>

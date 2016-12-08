@@ -35,7 +35,7 @@ class CouponCenterController extends Controller {
 
     	];
 
-    	if (count($request->all()) == 0) {
+    	if (count($request->all()) <= 1) {
 	       	$query = NormalCoupon::where('Starttime','<=',date('Y-m-d H:i:s'))
 					 ->where('Isactive','YES')
 					 ->where(function($query){
@@ -62,13 +62,13 @@ class CouponCenterController extends Controller {
 	        if ($merchant_id != '') {
 	        	$where .= " and MerchantID = ".$merchant_id;
 	        }
-	        if ($source != '-') {
+	        if ($source != '-' && $source != '') {
 	        	$where .= " and Source = '".$source."'";
 	        }
-	        if ($editor != '-') {
+	        if ($editor != '-' && $editor != '') {
 	        	$where .= " and Editor = '".$editor."'";
 	        }
-	        if ($type != '-') {
+	        if ($type != '-' && $type != '') {
 	        	$where .= " and PromoType = '".$PromoType_arr[$type]."'";
 	        }
 	        if ($coupon_id != '') {
@@ -81,24 +81,23 @@ class CouponCenterController extends Controller {
 
 	    	$coupons = $query->paginate(10);
 	        foreach ($coupons as $coupon) {
-	        	$coupon->merchant_name = NormalMerchant::where('ID',$coupon->MerchantID)->first()->Name;
-	        	$coupon->merchant_url = "http://in.promopro.com/front/merchant.php?mid=".$coupon->MerchantID;
-	        	$coupon->coupon_url = "http://in.promopro.com/front/coupondetail.php?couponid=".$coupon->ID;
-	        	$coupon->type = $PromoType_arr[$coupon->PromoType];
-	        	
-	        	$coupon->add_time = date("Y-m-d",strtotime($coupon->AddTime));
-	        	// $coupon->start_time = date("Y-m-d",strtotime($coupon->StartTime));
-	        	$coupon->expire_time = date("Y-m-d",strtotime($coupon->ExpireTime));
+	        	$normalcoupon_info = NormalCoupon::where('ID',$coupon->ID)->first();
+	        	if ($normalcoupon_info != null) {
+		        	$coupon->merchant_name = $normalcoupon_info->Name;
+		        	$coupon->merchant_url = "http://in.promopro.com/front/merchant.php?mid=".$normalcoupon_info->MerchantID;
+		        	$coupon->coupon_url = "http://in.promopro.com/front/coupondetail.php?couponid=".$normalcoupon_info->ID;
+		        	$coupon->type = $PromoType_arr[$normalcoupon_info->PromoType];
+		        	
+		        	$coupon->add_time = date("Y-m-d",strtotime($normalcoupon_info->AddTime));
+		        	$coupon->expire_time = date("Y-m-d",strtotime($normalcoupon_info->ExpireTime));
 
-	        	$normalcoupon_addinfo = NormalCouponAddinfo::where('ID',$coupon->ID)->first();
-	        	// $coupon->seowork_count = $normalcoupon_addinfo->SeoWorkcount;
-	        	// $coupon->seonowork_count = $normalcoupon_addinfo->SeoNoWorkcount;
-	        	$coupon->expiredate_type = $normalcoupon_addinfo->ExpireDateType;
-	        	$coupon->remind_date = $normalcoupon_addinfo->RemindDate;
-
-
-
-	        	$status = $this->getStats($coupon->ID);
+		        	$normalcoupon_addinfo = NormalCouponAddinfo::where('ID',$normalcoupon_info->ID)->first();
+		        	if ($normalcoupon_addinfo != null) {
+			        	$coupon->expiredate_type = $normalcoupon_addinfo->ExpireDateType;
+			        	$coupon->remind_date = $normalcoupon_addinfo->RemindDate;
+					}
+		        	$status = $this->getStats($normalcoupon_info->ID);
+				}
 
 	        	if (count($status['stats_detail']) == 0) {
 	        		$coupon->dates = "<h4>No Data</h4>";
@@ -112,7 +111,6 @@ class CouponCenterController extends Controller {
 		          	$coupon->dates .= "<td width='100px'>IMPS</td>";
 		          	$coupon->dates .= "<td width='100px'>CLICK</td></tr>";
 		          	foreach ($status['stats_detail'] as $k => $v) {
-		 				//dd($v);
 		        		$coupon->dates .= "<tr align='center'>";
 		        		$coupon->dates .= "<td>".$v['Date']."</td>";
 		        		$coupon->dates .= "<td>".$v['PageImpressions']."</td>";
@@ -125,8 +123,6 @@ class CouponCenterController extends Controller {
 		    }
 
 		        $request->flash();
-	    	
-
 
 		return view('content.couponcenter')->with(['coupons'=> $coupons,'search_data'=>$search_data]);
 	}
@@ -168,11 +164,9 @@ class CouponCenterController extends Controller {
 					break;
 			}
 
-
 		}
 
 		public function postClickChange(Request $request){
-			//var_dump($request->all());die;
 			$query = NormalCoupon::where('ID',$request->get('pk'));
 			switch ($request->get('name')) {
 				case 'title':
@@ -180,6 +174,15 @@ class CouponCenterController extends Controller {
 					break;
 				case 'remark':
 					$query->update(['Remark' => trim($request->get('value'))]);
+					break;
+				case 'addtime':
+					$query->update(['AddTime' => $request->get('value')]);
+					break;
+				case 'expiretime':
+					$query->update(['ExpireTime' => $request->get('value')]);
+					break;
+				case 'reminddate':
+					NormalCouponAddinfo::where('ID',$request->get('pk'))->update(['RemindDate' => $request->get('value')]);
 					break;
 				
 				default:
