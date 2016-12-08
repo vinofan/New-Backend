@@ -21,10 +21,10 @@ function getTable()
 	$('#merchant_list_table').DataTable({
 		serverSide: true,
 		createdRow: function ( row, data, index ) {
-                        $('td', row).eq(5).css('vertical-align',"middle").css("text-align","center");
-                },
+			$('td', row).eq(5).css('vertical-align',"middle").css("text-align","center");
+		},
 		ajax: {
-			url: 'http://in.backend.com/content/merchantlistdata',
+			url: '/content/merchantlistdata',
 			type: 'POST',
 			data: form_datas,
 		},
@@ -33,38 +33,38 @@ function getTable()
 			"width": '400',
 			render: function (data, type, row, meta) {
 				return "<div class=\"media\"><a class=\"media-left\" href='"
-								 + row.OriginalUrl + "'><img class=\"logo\" src='http://in.mgcdn.com/mimg/merimg/s_"
-								 + row.Logo + "'/></a><div class=\"media-body\"><h4 class=\"media-heading\"><a target='_blank' href='"
-								 + row.MerchantUrl + "'>"
-								 + data + " : " + row.Name + "</a></h4><br><b>BCGID:</b><span class=\"text-red\">"
-								 + row.mappingID + "</span>&nbsp;|&nbsp;<span><b>Editor: </b>"
-								 + row.AssignedEditor + "</span><br>Has Aff: "
-								 + row.HasAffiliate + "</div></div>";
+				+ row.OriginalUrl + "'><img class=\"logo\" src='http://in.mgcdn.com/mimg/merimg/s_"
+				+ row.Logo + "'/></a><div class=\"media-body\"><h4 class=\"media-heading\"><a target='_blank' href='"
+				+ row.MerchantUrl + "'>"
+				+ data + " : " + row.Name + "</a></h4><br><b>BCGID:</b><span class=\"text-red\">"
+				+ row.mappingID + "</span>&nbsp;|&nbsp;<span><b>Editor: </b>"
+				+ row.AssignedEditor + "</span><br>Has Aff: "
+				+ row.HasAffiliate + "</div></div>";
 			}
 		},
 		{
 			"data": "Grade",
 			render: function (data, type, row, meta) {
 				return "<span>" + data + "</span>"
-						+ "<br><br><span><b>Min Promo#: </b>" + row.MinPromotionCount + "</span>"
-						+ "<br><span><b>Upd Cycle: </b>" + row.TaskUpdateCycle + "</span>";
+				+ "<br><br><span><b>Min Promo#: </b>" + row.MinPromotionCount + "</span>"
+				+ "<br><span><b>Upd Cycle: </b>" + row.TaskUpdateCycle + "</span>";
 			}
 		},
 		{
 			"data": "PromotionCnt",
 			render: function (data, type, row, meta) {
 				return "<span>" + data + "</span>"
-						+ "<br><br><span><b>Coupon Cnt#: </b>" + row.CouponCnt + "</span>&nbsp;|&nbsp;"
-						+ "<span>Deal Cnt#: " + (data - row.CouponCnt) + "</span>" 
-						+ "<br><span>Last Add Time : " + row.LastAddTime + "</span>";
+				+ "<br><br><span><b>Coupon Cnt#: </b>" + row.CouponCnt + "</span>&nbsp;|&nbsp;"
+				+ "<span>Deal Cnt#: " + (data - row.CouponCnt) + "</span>" 
+				+ "<br><span>Last Add Time : " + row.LastAddTime + "</span>";
 			}
 		},
 		{
 			"data": "Ctr",
 			render: function (data, type, row, meta) {
 				return "<span>" + data + "</span>"
-						+ "<br><br><span><b>Impr7d: </b>" + row.Imps7d 
-						+ "<br><span><b>Click7d : </b>" + row.Clks7d + "</span>";
+				+ "<br><br><span><b>Impr7d: </b>" + row.Imps7d 
+				+ "<br><span><b>Click7d : </b>" + row.Clks7d + "</span>";
 			}	
 		},
 		{
@@ -73,12 +73,12 @@ function getTable()
 			render: function (data, type, row, meta) {
 				var str = "";
 				str = "<div class=\"btn-group\"><button class=\"btn btn-default btn-flat\" onclick=\"getRelatedUrl("
-				+ row.ID +");\">RelatedUrl</button></div>"
-				if (row.related_url && row.related_url.length > 0) {
-				str += "<b>Related Url:</b><br>";
-				$.each(row.related_url, function(index, value) {
-					str += "<span><a target='_blank' href='" + value.Url + "'>" + value.Name + "</a></span><br>";
-				});
+				+ row.ID +")\">Reference Url</button></div>"
+				/*if (row.related_url && row.related_url.length > 0) {
+					str += "<b>Related Url:</b><br>";
+					$.each(row.related_url, function(index, value) {
+						str += "<span><a target='_blank' href='" + value.Url + "'>" + value.Name + "</a></span><br>";
+					});
 				}
 
 				if (row.competitor_url && row.competitor_url.length > 0) {
@@ -86,7 +86,7 @@ function getTable()
 					$.each(row.competitor_url, function(index, value) {
 						str += "<span><a target='_blank' href='" + value.Url + "'>" + value.Name + "</a></span><br>";
 					});
-				}
+				}*/
 
 				return str;
 			}
@@ -109,20 +109,33 @@ $('#merchant_list_submit').click(function(){
 
 
 function getRelatedUrl(id){
-	
+	$.get('/common/getrelatedurlbymerid', {'merid': id}, function(data, status){
+		var str = "";
+		if (data.related_url && data.related_url.length > 0) {
+			str += "<b>Related Url:</b><br>";
+			$.each(data.related_url, function(index, value) {
+				str += "<span><a target='_blank' href='" + value.Url + "'>" + value.Name + "</a></span><br>";
+			});
+		}
 
-	$('#show_modal').modal('show');
+		if (data.competitor_url && data.competitor_url.length > 0) {
+			str += "<b>Competitor Url:</b><br>";
+			$.each(data.competitor_url, function(index, value) {
+				str += "<span><a target='_blank' href='" + value.Url + "'>" + value.Name + "</a></span><br>";
+			});
+		}
+		$('.modal-body').html(str);
+		$('#show_modal').modal('show');
+	});
+
+	//$('#show_modal').modal('show');
 }
-
-$('#related_url_35141').click(function(){
-	$('#show_modal').modal('show');
-});
 
 $(document).ready(function(){
 	$('input[type="checkbox"], input[type="radio"]').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue'
-    });
+		checkboxClass: 'icheckbox_square-blue',
+		radioClass: 'iradio_square-blue'
+	});
 
 	getTable();
 });

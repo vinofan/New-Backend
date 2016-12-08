@@ -27,6 +27,6 @@ class MenuSeeder extends Seeder
 	public function run()
 	{
 		DB::table('menu_module')->insert(['id' => '3', 'name' => 'Merchant Center', 'route_path' => 'content/merchantcenter', 'route_id' => 8, 'quick_link' => 1, 'group_id' => 1]);
-		DB::table('route_path')->insert(['id' => 'content/merchantcenter', 'page_title' => 'Merchant Center', 'page_breadcrumb' => 'merchant center', 'permit' => 'EDITOR']);
+		DB::table('route_info')->insert(['id' => 'content/merchantcenter', 'page_title' => 'Merchant Center', 'page_breadcrumb' => 'merchant center', 'permit' => 'EDITOR']);
 	}
 }

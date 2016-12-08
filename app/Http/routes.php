@@ -14,7 +14,7 @@ Route::controller('admin', 'Admin\AuthController');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::post('content/merchantlistdata', 'Content\MerchantCenterController@postMerchantListData');
-	Route::get('content/merchantlistdatatest', 'Content\MerchantCenterController@postMerchantListData');
+	Route::get('common/getrelatedurlbymerid', 'Common\MerchantLibController@getRelatedUrlByMerID');
 
 	Route::group(['middleware' => 'share'], function () {
 		include("path_routes.php");
