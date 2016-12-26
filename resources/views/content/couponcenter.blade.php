@@ -1,3 +1,4 @@
+<?php use Illuminate\Support\Facades\Input; ?>
 @extends('common')
 @section('content')
 <style type="text/css">
@@ -22,7 +23,7 @@
 							<table width="98%;"> 
 								<tr>
 									<td width="60px">Merchant:</td>
-									<td ><input type="text" value="{{old('merchant')}}" name="merchant" style="width:90px;height:30px"></td>
+									<td ><input type="text" value="{{Input::old('merchant')}}" name="merchant" style="width:90px;height:30px"></td>
 									<td width="60px">Source:</td>
 									<td>
 										<select name="source" style="width:90px;height:30px">
@@ -54,10 +55,10 @@
 								</tr>
 								<tr>
 					             	<td width="60px">Tag:</td>
-									<td ><input type="text" value="{{old('Tag')}}" name="Tag" style="width:90px;height:30px"></td>
+									<td ><input type="text" value="{{Input::old('Tag')}}" name="Tag" style="width:90px;height:30px"></td>
 
 									<td width="60px">CouponID:</td>
-									<td ><input type="text" value="{{old('CouponID')}}" name="CouponID" style="width:90px;height:30px"></td>
+									<td ><input type="text" value="{{Input::old('CouponID')}}" name="CouponID" style="width:90px;height:30px"></td>
 								</tr>
 
 								<tr>
@@ -105,9 +106,9 @@
 						 <button type="button" onclick="markSelectedItems();" class="btn btn-danger">Execute</button>
 						 </form>
    						
-		                <thead>
-			                <tr>
-			               	  <th width='20px'></th>
+		                <thead  style="display:block;overflow-y: scroll;border-bottom:1px solid #eee;">
+			                <tr style="background-color:#d9edf7">
+			               	  <th></th>
 			                  <!-- <th>Merchant</th> -->
 			                  <th>Promotion Detail</th>
 			                  <th>Title</th>
@@ -120,7 +121,7 @@
 			                </tr>
 		                </thead>
 		            
-		                <tbody>
+		                <tbody style="display:block; max-height:500px;overflow-y: scroll;">
 
 		                	@foreach($coupons as $coupon)
 			                <tr>
@@ -131,7 +132,7 @@
 			                       	<a href="{{$coupon->merchant_url}}" target='_blank'  title='go to merchant page' style='color:#6666CC'>{{$coupon->merchant_name}}</a><br>{{$coupon->MerchantID}}<br>
 			                       	
 			                  	</td> -->
-			                  	<td width='8%'>
+			                  	<td>
 			                  		<span id="type_{{$coupon->ID}}">{{$coupon->type}}</span><br />
 			                  		<span>@if($coupon->OnlineState == 1)  Online In-store @endif @if($coupon->OnlineState == 2) Online  @endif @if($coupon->OnlineState == 3) In-store @endif</span>
 
@@ -148,7 +149,7 @@
 			                  	</td>
 
 			                  	
-			                  	<td width='10%'>ID:<font color="red">{{$coupon->ID}}</font></span><br>
+			                  	<td>ID:<font color="red">{{$coupon->ID}}</font></span><br>
 
 			                  		<a href="#" class="title_edit" data-pk="{{$coupon->ID}}">{{$coupon->Title}}</a><br>
 				                  	<a href='{{$coupon->coupon_url}}' target='_blank' title='go to coupon detail page' style='color:#6666CC'>open</a>
@@ -157,7 +158,7 @@
 				                  	<a href='{{$coupon->merchant_url}}' target='_blank'>Merchant URL</a>
 			                  	</td>
 			                  	
-			                  	<td width='40%'>
+			                  	<td>
 			                  		<a href="#" class="remark_edit" data-pk="{{$coupon->ID}}">{{$coupon->Remark}}</a><br />
 			                  	</td>
 			                  	<td>
@@ -173,10 +174,10 @@
 								    </p>
 			                  	</td>
 			                  	
-			                  	<td width='8%'>
+			                  	<td>
 
 									<span id="expiredatetype_{{$coupon->ID}}">{{$coupon->expiredate_type}}</span><br>
-									A: <a href="#" class="addtime_edit" data-pk="{{$coupon->ID}}"><span>@if($coupon->add_time == "1970-01-01" || $coupon->add_time == "0000-00-00")  @else{{$coupon->add_time}}@endif</span></a><br>
+									A: <a href="#" class="addtime_edit" data-pk="{{$coupon->ID}}"><span>@if($coupon->add_time <= "1970-01-01" || $coupon->add_time == "0000-00-00")  @else{{$coupon->add_time}}@endif</span></a><br>
 									<!-- S: <span>{{$coupon->start_time}}</span><br> -->
 									E: <a href="#" class="expiretime_edit" data-pk="{{$coupon->ID}}"><span>@if($coupon->expire_time <= "1970-01-01" || $coupon->expire_time == "0000-00-00")  @else{{$coupon->expire_time}}@endif</span></a><br>
 									@if($coupon->expiredate_type == 'Unknown')
@@ -197,7 +198,9 @@
 
 	                </table>
 	                <div class="pull-right">
-	                     <?php echo $coupons->render(); ?>
+	                     
+	                    <?php echo $coupons->appends(['merchant' => Input::get('merchant')])->render(); ?>
+	                     
 	                </div>
 		        </div>
 
@@ -250,6 +253,30 @@ $('.reminddate_edit').editable({
                         });
 
 </script>
+
+<script type="text/javascript">  
+    $(document).ready(function(){  
+        var _width=$('#coupon_list_table').width();  
+        $('#coupon_list_table th:first-child').width(_width*0.02);  
+        $('#coupon_list_table td:first-child').width(_width*0.02);  
+        $('#coupon_list_table th:nth-child(2)').width(_width*0.08);  
+        $('#coupon_list_table td:nth-child(2)').width(_width*0.08);  
+        $('#coupon_list_table th:nth-child(3)').width(_width*0.15);  
+        $('#coupon_list_table td:nth-child(3)').width(_width*0.15);  
+        $('#coupon_list_table th:nth-child(4)').width(_width*0.3);  
+        $('#coupon_list_table td:nth-child(4)').width(_width*0.3);  
+        $('#coupon_list_table th:nth-child(5)').width(_width*0.08);  
+        $('#coupon_list_table td:nth-child(5)').width(_width*0.08);  
+        $('#coupon_list_table th:nth-child(6)').width(_width*0.08);  
+        $('#coupon_list_table td:nth-child(6)').width(_width*0.08);  
+        $('#coupon_list_table th:nth-child(7)').width(_width*0.05);  
+        $('#coupon_list_table td:nth-child(7)').width(_width*0.05);
+        $('#coupon_list_table th:nth-child(8)').width(_width*0.06);  
+        $('#coupon_list_table td:nth-child(8)').width(_width*0.06);
+        $('#coupon_list_table th:nth-child(9)').width(_width*0.065);  
+        $('#coupon_list_table td:nth-child(9)').width(_width*0.065);
+    })  
+</script>  
 
 @endsection
 

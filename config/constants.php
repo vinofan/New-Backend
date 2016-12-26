@@ -10,7 +10,7 @@ return [
 	'editors' => ['-', 'jessieli', 'marissalei', 'allyzhang', 'glarawang', 'verazhou', 'shirleyhu'],
 	'front_url' => 'http://in.promopro.com/',
 	'backend_url' => 'http://in.backend.com/',
-	'sources' => ['-', 'SHIN|Affiliate', 'SHIN|Competitor', 'SHIN|Merchant', 'SHIN|Tag', 'SHIN|Claw|Ex', 'SHIN|Claw|SELECT','SHIN|Approval','other'],
+	'sources' => ['-', 'SHIN|Affiliate', 'SHIN|Competitor', 'SHIN|Merchant', 'SHIN|Tag', 'SHIN|Claw|Ex', 'SHIN|Claw|Select','SHIN|Approval','other'],
 
 ]
 
